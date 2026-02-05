@@ -1,14 +1,14 @@
-# 🎓 Obsolescencia de Títulos | Auditoría 03
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](TU_URL_AQUI)
+# 🎓 Auditoría de Obsolescencia Profesional
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://obsolescencia-de-titulos-01.streamlit.app/)
 
-**Calcula la caducidad exponencial de tu formación profesional.**
+**Análisis técnico sobre la caducidad del conocimiento en el mercado global.**
 
 ## 🎯 Objetivo
-Visualizar el impacto de la "Inflación Académica". Esta app utiliza una función de decaimiento para mostrar cuánto valor conserva tu título hoy frente a la velocidad de cambio de la industria.
+Esta herramienta permite a profesionales de diversas áreas calcular la "vida media" de sus habilidades, diferenciando entre competencias técnicas (Hard) y humanas (Soft).
 
-## 🧮 Lógica Matemática
-$$Valor = 100 \cdot (0.5)^{\frac{\text{Años Transcurridos}}{\text{Vida Media}}}$$
+## 📚 Metodología y Fuentes
+* **Half-life of Knowledge**: Basado en las teorías de Samuel Arbesman.
+* **World Economic Forum**: Datos del reporte *Future of Jobs*.
+* **OCDE**: Estándares de resiliencia laboral.
 
----
-🌐 *Proyecto original de la serie 'Código Humano'.*
 Desarrollado por **Jesus Osmar Gutierrez Fernandez** con **Python & Streamlit 🐍**
