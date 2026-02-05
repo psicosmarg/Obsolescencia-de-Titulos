@@ -95,14 +95,15 @@ with col2:
     fig.update_layout(template="plotly_white", height=400, margin=dict(l=10, r=10, t=30, b=10))
     st.plotly_chart(fig, on_select="ignore")
 
-# --- SECCIÓN DE TRANSPARENCIA (Sugerencia de Litza) ---
+# --- SECCIÓN DE TRANSPARENCIA (Corregida con Raw String) ---
 with st.expander("📚 Fuentes de Datos y Metodología (Transparencia)"):
-    st.markdown(f"""
-    * **Metodología:** Basado en el concepto de *Half-life of Knowledge* (Samuel Arbesman).
-    * **Habilidades Duras:** Datos ajustados según el reporte *'The Future of Jobs'* (**World Economic Forum**).
-    * **Habilidades Blandas:** Proyecciones de resiliencia laboral de la **OCDE**.
-    * **Cálculo:** Función de decaimiento exponencial: $$Valor = 100 \cdot (0.5)^ \frac{{t}}{{v}}$$.
-    """)
+    st.markdown(r"""
+    * **Metodología Científica:** Basado en el concepto de *Half-life of Knowledge* (Samuel Arbesman).
+    * **Habilidades Duras:** Datos ajustados según el reporte *'The Future of Jobs'* del **World Economic Forum (WEF)**.
+    * **Habilidades Blandas:** Proyecciones de resiliencia laboral basadas en estándares de la **OCDE**.
+    * **Cálculo:** Función de decaimiento exponencial:  
+      $$Valor = 100 \cdot (0.5)^{\frac{t}{v}}$$
+    """, unsafe_allow_html=True)
 
 # --- LEYENDA OFICIAL ---
 st.markdown("---")
