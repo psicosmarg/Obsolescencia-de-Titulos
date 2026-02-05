@@ -5,43 +5,45 @@ import numpy as np
 # --- CONFIGURACIÓN ---
 st.set_page_config(page_title="Auditoría de Obsolescencia Profesional", layout="wide")
 
-# --- CSS DE BLINDAJE VISUAL (Fuerza fondo blanco y texto negro) ---
+# --- CSS DE BLINDAJE TOTAL (Fuerza contraste máximo) ---
 st.markdown("""
     <style>
-    /* Obligamos a toda la app a ser fondo blanco */
-    .stApp {
+    /* 1. Fondo general de la App y la Barra Lateral */
+    .stApp, [data-testid="stSidebar"], [data-testid="stHeader"] {
+        background-color: #FFFFFF !important;
+    }
+
+    /* 2. Texto General (Forzamos Negro Profundo) */
+    h1, h2, h3, h4, h5, h6, p, li, span, label {
+        color: #000000 !important;
+    }
+
+    /* 3. Menús Desplegables y Entradas de Texto (Contraste Crítico) */
+    div[data-baseweb="select"] > div, 
+    div[data-baseweb="popover"] div,
+    [data-testid="stSelectbox"] div {
+        background-color: #FFFFFF !important;
+        color: #000000 !important;
+        border-color: #CCCCCC !important;
+    }
+
+    /* 4. Opciones del Menú (Para que no se vean negras en el móvil) */
+    ul[role="listbox"] li {
         background-color: #FFFFFF !important;
         color: #000000 !important;
     }
     
-    /* Forzamos el color negro en párrafos, títulos y métricas */
-    h1, h2, h3, h4, p, li, span, div {
-        color: #1A1A1A !important;
-    }
-
-    /* Estilo para las métricas (Azul profesional sobre blanco) */
+    /* 5. Métricas (Azul profesional) */
     div[data-testid="stMetricValue"] {
         color: #007BFF !important;
-        font-size: 48px !important;
+        font-size: 45px !important;
         font-weight: 800 !important;
     }
 
-    /* Estilo para el Expander de Referencias (Gris muy claro) */
+    /* 6. Expander de Referencias */
     .stExpander {
-        background-color: #F1F3F5 !important;
-        border: 1px solid #DEE2E6 !important;
-        border-radius: 10px !important;
-    }
-
-    /* Ajuste para que los Sliders se vean bien */
-    .stSlider > div > div > div > div {
-        background-color: #007BFF !important;
-    }
-
-    /* Sidebar con contraste moderado */
-    section[data-testid="stSidebar"] {
         background-color: #F8F9FA !important;
-        border-right: 1px solid #E9ECEF !important;
+        border: 1px solid #DEE2E6 !important;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -72,18 +74,14 @@ valor_actual = 100 * (0.5)**(años_t / v_media)
 
 # --- VISUALIZACIÓN ---
 st.title("🎓 Auditoría de Obsolescencia Profesional")
-st.write("Informe técnico sobre la relevancia de su formación académica frente al mercado global.")
+st.write("Análisis de relevancia académica frente a la evolución del mercado global.")
 
 col1, col2 = st.columns([1, 2])
 
 with col1:
     st.metric("Relevancia Actual", f"{valor_actual:.1f}%")
-    
     st.markdown("### 💡 Diagnóstico")
-    if carrera == "Tecnología / Software" and tipo_habilidad == "Habilidades Duras (Técnicas)":
-        st.info("Debido a la IA y ciclos cortos de innovación, el conocimiento técnico se vuelve 'legado' rápidamente.")
-    else:
-        st.info(f"{desc_tipo} En {carrera}, la ventaja competitiva depende de la actualización metodológica constante.")
+    st.info(f"{desc_tipo} En el sector de {carrera}, la ventaja competitiva depende de la actualización constante.")
 
 with col2:
     # Gráfica de decaimiento
@@ -92,27 +90,18 @@ with col2:
     
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=x, y=y, line=dict(color='#007BFF', width=5), name="Curva de Valor"))
-    fig.add_trace(go.Scatter(x=[2026], y=[valor_actual], 
-                             marker=dict(color='#E63946', size=15, symbol='diamond'), 
-                             name="Estado Actual (2026)"))
+    fig.add_trace(go.Scatter(x=[2026], y=[valor_actual], marker=dict(color='#E63946', size=14, symbol='diamond'), name="Hoy (2026)"))
     
-    fig.update_layout(
-        template="plotly_white", # Fondo blanco para máxima claridad
-        height=450, 
-        xaxis_title="Evolución Temporal",
-        yaxis_title="Valor (%)",
-        yaxis=dict(range=[0, 105]),
-        margin=dict(l=20, r=20, t=40, b=20)
-    )
+    fig.update_layout(template="plotly_white", height=400, margin=dict(l=10, r=10, t=30, b=10))
     st.plotly_chart(fig, on_select="ignore")
 
-# --- SECCIÓN DE TRANSPARENCIA (Legibilidad forzada) ---
+# --- SECCIÓN DE TRANSPARENCIA (Sugerencia de Litza) ---
 with st.expander("📚 Fuentes de Datos y Metodología (Transparencia)"):
     st.markdown(f"""
-    * **Metodología Científica:** Basado en el concepto de *Half-life of Knowledge* (Samuel Arbesman).
-    * **Habilidades Duras:** Reporte *'The Future of Jobs'* del **World Economic Forum (WEF)**.
+    * **Metodología:** Basado en el concepto de *Half-life of Knowledge* (Samuel Arbesman).
+    * **Habilidades Duras:** Datos ajustados según el reporte *'The Future of Jobs'* (**World Economic Forum**).
     * **Habilidades Blandas:** Proyecciones de resiliencia laboral de la **OCDE**.
-    * **Cálculo:** Función de decaimiento exponencial: **Valor = 100 * (0.5)^(t/v)**.
+    * **Cálculo:** Función de decaimiento exponencial: $$Valor = 100 \cdot (0.5)^ \frac{{t}}{{v}}$$.
     """)
 
 # --- LEYENDA OFICIAL ---
